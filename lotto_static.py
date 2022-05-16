@@ -2,6 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+DRAWS = 100
+LUCKY_BALLS = 6
+ALL_BALLS = 49
+
 
 def factorial(x):
     if x < 1:
@@ -20,32 +24,28 @@ def shuffle(n):
             return i
 
 
-lucky = 6
-balls = 49
-moves = int((factorial(balls)/(factorial(balls-lucky)*factorial(lucky))))
+moves = int((factorial(ALL_BALLS)/(factorial(ALL_BALLS-LUCKY_BALLS)*factorial(
+    LUCKY_BALLS))))
 
-listx = []
-listy = []
-means = []
-arrx = np.array(listx)
-arry = np.array(listy)
-arrm = np.array(means)
+list_x = []
+list_y = []
+list_means = []
 
-for x in range(100):
-    arrx = np.append(arrx, x+1)
-    arry = np.append(arry, shuffle(moves))
-    arrm = np.append(arrm, np.mean(arry))
+for x in range(DRAWS):
+    list_x.append(x)
+    list_y.append(shuffle(moves))
+    list_means.append(np.mean(list_y))
 
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
-ax1.scatter(arrx, arry)
+ax1.scatter(list_x, list_y)
 ax1.set_title('Tries')
 ax1.axhline(y=moves, color='r', linestyle='--')
-ax2.plot(arrx, arrm)
+ax1.set(xlabel='Draw Number', ylabel='Tries to succeed')
+
+ax2.plot(list_x, list_means)
 ax2.set_title('Deviation from the mean after n draws')
 ax2.axhline(y=moves, color='r', linestyle='--')
-
-ax1.set(xlabel='Draw Number', ylabel='Tries to succeed')
 ax2.set(xlabel='Draw Number', ylabel='Mean')
 
 plt.show()
