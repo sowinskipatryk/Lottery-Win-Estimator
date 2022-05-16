@@ -23,7 +23,7 @@ def shuffle(n):
             return i
 
 
-moves = int((factorial(ALL_BALLS) / (factorial(ALL_BALLS - LUCKY_BALLS) * 
+moves = int((factorial(ALL_BALLS) / (factorial(ALL_BALLS - LUCKY_BALLS) *
                                      factorial(LUCKY_BALLS))))
 
 list_x = []
@@ -35,7 +35,10 @@ plt.ion()
 min_x = 0
 max_x = 100
 
-fig, (ax1, ax2) = plt.subplots(1, 2)
+fig = plt.figure(figsize=(10, 6))
+ax1 = fig.add_subplot(1, 2, 1)
+ax2 = fig.add_subplot(1, 2, 2)
+
 ln1, = ax1.plot([], [], 'o')
 ln2, = ax2.plot([], [])
 
@@ -47,7 +50,7 @@ ax1.set(xlabel='Draw Number', ylabel='Tries to succeed')
 
 ax2.set_autoscaley_on(True)
 ax2.set_xlim(min_x, max_x)
-ax2.set_title('Deviation from the mean after n draws')
+ax2.set_title('Mean deviation')
 ax2.axhline(y=moves, color='r', linestyle='--')
 ax2.set(xlabel='Draw Number', ylabel='Mean')
 
